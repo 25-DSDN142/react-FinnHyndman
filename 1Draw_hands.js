@@ -18,15 +18,46 @@ function drawInteraction(faces, hands) {
     let indexFingerTipX = hand.index_finger_tip.x;
     let indexFingerTipY = hand.index_finger_tip.y;
 
-    //  let pinkyFingerTipX = hand.pinky_finger_tip.x;
-    //  let pinkyFingerTipY = hand.pinky_finger_tip.y;
+    let pinkyFingerTipX = hand.pinky_finger_tip.x;
+    let pinkyFingerTipY = hand.pinky_finger_tip.y;
+
+    let ringFingerTipX = hand.ring_finger_tip.x;
+    let ringFingerTipY = hand.ring_finger_tip.y;
+
+    let thumbTipX = hand.thumb_tip.x;
+    let thumbTipY = hand.thumb_tip.y;
+
 
     /*
     Start drawing on the hands here
     */
 
-    fill(225, 225, 0);
-    ellipse(indexFingerTipX, indexFingerTipY, 30, 30);
+    // fill(225, 225, 0);
+    // ellipse(indexFingerTipX, indexFingerTipY, 30, 30);
+
+noStroke()
+
+for (let i = 0; i < 10; i++) {
+      fill(0, 0, 200, 100 - i * 10);
+      ellipse(ringFingerTipX, ringFingerTipY, 100 + i*5, 100 + i*5);
+ }
+
+for (let i = 0; i < 10; i++) {
+      fill(200, 0, 0, 100 - i * 10);
+      ellipse(indexFingerTipX, indexFingerTipY, 100 + i*5, 100 + i*5);
+ }
+
+for (let i = 0; i < 10; i++) {
+      fill(200, 200, 0, 100 - i * 10);
+      ellipse(pinkyFingerTipX, pinkyFingerTipY, 100 + i*5, 100 + i*5);
+ }
+
+for (let i = 0; i < 10; i++) {
+      fill(0, 200, 0, 100 - i * 10);
+      ellipse(thumbTipX, thumbTipY, 100 + i*5, 100 + i*5);
+ }
+
+
 
     // drawPoints(hand)
 

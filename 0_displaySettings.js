@@ -56,7 +56,7 @@ const numberOfFaces = 1;
 const numberOfHands = 2; 
 
 
-const threshold = 0.9 // only change if you're having hand detection issues
+const threshold = 0.9 // only change if you're having hand detection issuhes
 
 const performanceMode = 'high'; // 'low', 'balanced', 'high'
 

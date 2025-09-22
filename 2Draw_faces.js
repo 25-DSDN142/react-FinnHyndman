@@ -61,30 +61,31 @@ function drawInteraction(faces, hands) {
 
     let noseTipX = face.keypoints[4].x;
     let noseTipY = face.keypoints[4].y;
+
     /*
     Start drawing on the face here
     */
-    noStroke()
+    //noStroke()
     fill(225, 225, 0);
     // fill(get(leftEyeCenterX, leftEyeCenterY))
 
-    ellipse(leftEyeCenterX, leftEyeCenterY, leftEyeWidth, leftEyeHeight);
+    //ellipse(leftEyeCenterX, leftEyeCenterY, leftEyeWidth, leftEyeHeight);
 
-    drawPoints(face.leftEye);
-    drawPoints(face.leftEyebrow);
-    drawPoints(face.lips);
-    drawPoints(face.rightEye);
-    drawPoints(face.rightEyebrow);
+    // drawPoints(face.leftEye);
+    // drawPoints(face.leftEyebrow);
+    // drawPoints(face.lips);
+    // drawPoints(face.rightEye);
+    // drawPoints(face.rightEyebrow);
 
     // drawX(rightEyeCenterX,rightEyeCenterY);
     // drawX(leftEyeCenterX,leftEyeCenterY);
 
+    
+  fill(255,0,0)
+  ellipse(face.keypoints[280].x,face.keypoints[280].y,50,50); 
+  ellipse(face.keypoints[50].x,face.keypoints[50].y,50,50); 
 
-    // drawX(noseTipX,noseTipY); 
-
-    // drawX(face.keypoints[332].x,face.keypoints[332].y);
-    // drawX(face.keypoints[103].x,face.keypoints[103].y);
-
+  drawHorn(face.keypoints[10].x,face.keypoints[10].y);
 
     /*
     Stop drawing on the face here
@@ -104,6 +105,16 @@ function drawX(X, Y) {
 
   pop()
 }
+
+
+function drawHorn(x,y){
+fill(255,0,0)
+triangle(x-30, y, x-100, y, x-45, y-150);
+triangle(x+30, y, x+100, y, x+45, y-150);
+
+
+}
+
 
 
 // This function draw's a dot on all the keypoints. It can be passed a whole face, or part of one. 

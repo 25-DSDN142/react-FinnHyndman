@@ -1,6 +1,6 @@
 // ----=  Faces  =----
 /* load images here */
-
+let myImage;
 
 function prepareInteraction() {
   myImage = loadImage('images/EyeLeft.png');
@@ -69,7 +69,7 @@ function drawInteraction(faces, hands) {
     Start drawing on the face here
     */
   //splashback()
-  image(myImage, face.keypoints[273].x,face.keypoints[273].y,300,223);
+  image(myImage,leftEyeCenterX,leftEyeCenterY,300,223);
     /*
     Stop drawing on the face here
     */

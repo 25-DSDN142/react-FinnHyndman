@@ -24,6 +24,7 @@ function prepareInteraction() {
   legs = loadImage('images/legs.png');
   shoe = loadImage('images/shoe.png');
   eyeWhiteRight = loadImage('images/eyeWhiteRight.png');
+  eyeWhiteLeft = loadImage('images/eyeWhiteLeft.png');
 
   
 }
@@ -85,7 +86,7 @@ function drawInteraction(faces, hands) {
   image(shoe,faceCenterX-180,faceCenterY+495,450,335);//right shoe
   image(shoe,faceCenterX,faceCenterY+507,450,335);//left shoe
   image(body,faceCenterX-90,faceCenterY,330,253);
-  image(leftEye,leftEyeCenterX-33,leftEyeCenterY-23,300,223);
+  //image(leftEye,leftEyeCenterX-33,leftEyeCenterY-23,300,223);
   image(topLip,face.keypoints[0].x-20,face.keypoints[0].y-70,300,223);
   image(bottomLip,face.keypoints[14].x-20,face.keypoints[14].y-70,300,223);
   image(bottomLip,face.keypoints[14].x-20,face.keypoints[14].y-70,300,223);
@@ -100,14 +101,14 @@ fill(0)
 ellipse(rightEyeCenterX+25,rightEyeCenterY+5, 30, rightPupilH)
 
 //left eye draw
-/*
-image(eyeWhiteLeft,leftEyeCenterX,leftEyeCenterY-19,300,223);
+
+image(eyeWhiteLeft,leftEyeCenterX-33,leftEyeCenterY-20,300,223);
 leftEyeH =face.keypoints[374].y-face.keypoints[386].y
 leftPupilH = map (leftEyeH,15,20,10,30)
 leftPupilH = constrain(leftPupilH,0,30)
 fill(0)
-ellipse(leftEyeCenterX+25,leftEyeCenterY+5, 30, leftPupilH)
-*/
+ellipse(leftEyeCenterX,leftEyeCenterY,30, leftPupilH)
+
 
 /*/
 

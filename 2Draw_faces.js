@@ -1,5 +1,14 @@
 // ----=  Faces  =----
 /* load images here */
+let firstRun = true;
+let myImage;
+
+if (firstRun) {
+myImage = loadImage('EyeLeft.png');
+firstRun = false;
+}
+
+
 function prepareInteraction() {
   //bgImage = loadImage('/images/background.png');
 }
@@ -66,6 +75,7 @@ function drawInteraction(faces, hands) {
     Start drawing on the face here
     */
   splashback()
+  
     /*
     Stop drawing on the face here
     */

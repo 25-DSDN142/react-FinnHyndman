@@ -59,11 +59,7 @@ for (let i = 0; i < 10; i++) {
 
 
 
-    // drawPoints(hand)
-
-    //fingerPuppet(indexFingerTipX, indexFingerTipY);
-
-    //chameleonHandPuppet(hand)
+    drawPoints(hand)
 
     /*
     Stop drawing on the hands here

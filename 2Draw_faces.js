@@ -65,28 +65,7 @@ function drawInteraction(faces, hands) {
     /*
     Start drawing on the face here
     */
-    //noStroke()
-    fill(225, 225, 0);
-    // fill(get(leftEyeCenterX, leftEyeCenterY))
-
-    //ellipse(leftEyeCenterX, leftEyeCenterY, leftEyeWidth, leftEyeHeight);
-
-    // drawPoints(face.leftEye);
-    // drawPoints(face.leftEyebrow);
-    // drawPoints(face.lips);
-    // drawPoints(face.rightEye);
-    // drawPoints(face.rightEyebrow);
-
-    // drawX(rightEyeCenterX,rightEyeCenterY);
-    // drawX(leftEyeCenterX,leftEyeCenterY);
-
-    
-  fill(255,0,0)
-  ellipse(face.keypoints[280].x,face.keypoints[280].y,50,50); 
-  ellipse(face.keypoints[50].x,face.keypoints[50].y,50,50); 
-
-  drawHorn(face.keypoints[10].x,face.keypoints[10].y);
-
+  splashback()
     /*
     Stop drawing on the face here
     */
@@ -96,26 +75,11 @@ function drawInteraction(faces, hands) {
   // You can make addtional elements here, but keep the face drawing inside the for loop. 
 }
 
-function drawX(X, Y) {
-  push()
-
-  strokeWeight(15)
-  line(X - 20, Y - 20, X + 20, Y + 20)
-  line(X - 20, Y + 20, X + 20, Y - 20)
-
-  pop()
+function splashback(){
+noStroke()
+  fill(250)
+  rect(0,0,1290,960)
 }
-
-
-function drawHorn(x,y){
-fill(255,0,0)
-triangle(x-30, y, x-100, y, x-45, y-150);
-triangle(x+30, y, x+100, y, x+45, y-150);
-
-
-}
-
-
 
 // This function draw's a dot on all the keypoints. It can be passed a whole face, or part of one. 
 function drawPoints(feature) {

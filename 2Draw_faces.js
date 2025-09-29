@@ -3,7 +3,8 @@
 
 function prepareInteraction() {
   leftEye = loadImage('images/EyeLeft.png');
-  rightEye = loadImage('images/EyeRight.png');
+  //rightEye = loadImage('images/EyeRight.png');
+  eyeWhiteRight = loadImage('images/eyeWhiteRight.png');
   face1 = loadImage('images/Face.png');
   topLip = loadImage('images/MouthTop.png');
   bottomLip = loadImage('images/MouthBottom.png');
@@ -82,14 +83,14 @@ function drawInteraction(faces, hands) {
   image(shoulder,faceCenterX-56,faceCenterY,300,223);
   image(face1,faceCenterX-70,faceCenterY-150,330,253);
   image(legs,faceCenterX-100,faceCenterY+210,450,335);
-  image(shoe,faceCenterX-180,faceCenterY+495,450,335);
+  image(shoe,faceCenterX-180,faceCenterY+495,450,335);//right shoe
   image(shoe,faceCenterX,faceCenterY+507,450,335);//left shoe
   image(body,faceCenterX-90,faceCenterY,330,253);
   image(leftEye,leftEyeCenterX-33,leftEyeCenterY-23,300,223);
-  image(rightEye,rightEyeCenterX-29,rightEyeCenterY-19,300,223);
+  image(eyeWhiteRight,rightEyeCenterX-29,rightEyeCenterY-19,300,223);
   image(topLip,face.keypoints[0].x-20,face.keypoints[0].y-70,300,223);
   image(bottomLip,face.keypoints[14].x-20,face.keypoints[14].y-70,300,223);
-  image(bottomLip,face.keypoints[14].x-20,face.keypoints[14].y-70,300,223);
+  image(bottomLip,facekeypoints[14].x-20,face.keypoints[14].y-70,300,223);
 
 
 
@@ -107,6 +108,8 @@ noStroke()
   fill(250)
   rect(0,0,1290,960)
 }
+
+
 
 
 // This function draw's a dot on all the keypoints. It can be passed a whole face, or part of one. 

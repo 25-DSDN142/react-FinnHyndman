@@ -1,9 +1,16 @@
 // ----=  Faces  =----
 /* load images here */
-let myImage;
 
 function prepareInteraction() {
-  myImage = loadImage('images/EyeLeft.png');
+  leftEye = loadImage('images/EyeLeft.png');
+  rightEye = loadImage('images/EyeRight.png');
+  face1 = loadImage('images/Face.png');
+  topLip = loadImage('images/MouthTop.png');
+  bottomLip = loadImage('images/MouthBottom.png');
+  body = loadImage('images/body.png');
+  neck = loadImage('images/neck.png');
+  shoulder = loadImage('images/shoulders.png');
+  legs = loadImage('images/legs.png');
 
 }
 
@@ -68,8 +75,20 @@ function drawInteraction(faces, hands) {
     /*
     Start drawing on the face here
     */
-  //splashback()
-  image(myImage,leftEyeCenterX,leftEyeCenterY,300,223);
+  splashback()
+  image(neck,faceCenterX-30,faceCenterY,300,223);
+  image(shoulder,faceCenterX-56,faceCenterY,300,223);
+  image(face1,faceCenterX-70,faceCenterY-150,330,253);
+  image(legs,faceCenterX-100,faceCenterY+210,450,335);
+  image(body,faceCenterX-90,faceCenterY,330,253);
+  image(leftEye,leftEyeCenterX-33,leftEyeCenterY-23,300,223);
+  image(rightEye,rightEyeCenterX-29,rightEyeCenterY-19,300,223);
+  image(topLip,face.keypoints[0].x-20,face.keypoints[0].y-70,300,223);
+  image(bottomLip,face.keypoints[14].x-20,face.keypoints[14].y-70,300,223);
+  image(bottomLip,face.keypoints[14].x-20,face.keypoints[14].y-70,300,223);
+
+
+
     /*
     Stop drawing on the face here
     */

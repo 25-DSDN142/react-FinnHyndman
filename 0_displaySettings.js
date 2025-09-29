@@ -23,7 +23,7 @@
 
 // If using video file use these dimentions: 
 const  CaptureWidth = 1280;
-const  CaptureHeight = 720;
+const  CaptureHeight = 960;
 
 // const  CaptureWidth = 640;
 // const  CaptureHeight = 480;

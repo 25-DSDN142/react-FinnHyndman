@@ -1,16 +1,10 @@
 // ----=  Faces  =----
 /* load images here */
-let firstRun = true;
-let myImage;
-
-if (firstRun) {
-myImage = loadImage('EyeLeft.png');
-firstRun = false;
-}
 
 
 function prepareInteraction() {
-  //bgImage = loadImage('/images/background.png');
+  myImage = loadImage('images/EyeLeft.png');
+
 }
 
 function drawInteraction(faces, hands) {
@@ -74,8 +68,8 @@ function drawInteraction(faces, hands) {
     /*
     Start drawing on the face here
     */
-  splashback()
-  
+  //splashback()
+  image(myImage, face.keypoints[273].x,face.keypoints[273].y,300,223);
     /*
     Stop drawing on the face here
     */
@@ -90,6 +84,7 @@ noStroke()
   fill(250)
   rect(0,0,1290,960)
 }
+
 
 // This function draw's a dot on all the keypoints. It can be passed a whole face, or part of one. 
 function drawPoints(feature) {

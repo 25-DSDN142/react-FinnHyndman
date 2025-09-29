@@ -1,127 +1,109 @@
-// ----=  HANDS  =----
+
+let leftEye;
+let rightEye;
+let face1;
+let topLip;
+let bottomLip;
+let body;
+let neck;
+let shoulder;
+let legs;
+let shoe;
+let arm;
+
 function prepareInteraction() {
-  //bgImage = loadImage('/images/background.png');
+  face1 = loadImage('images/Face.png');
+  leftEye = loadImage('images/EyeLeft.png');
+  rightEye = loadImage('images/EyeRight.png');
+  topLip = loadImage('images/MouthTop.png');
+  bottomLip = loadImage('images/MouthBottom.png');
+  neck = loadImage('images/neck.png');
+  shoulder = loadImage('images/shoulders.png');
+  arm = loadImage('images/arm.png');
+  body = loadImage('images/body.png');
+  legs = loadImage('images/legs.png');
+  shoe = loadImage('images/shoe.png');
+  
 }
 
 function drawInteraction(faces, hands) {
-
-  // hands part
-  // USING THE GESTURE DETECTORS (check their values in the debug menu)
-  // detectHandGesture(hand) returns "Pinch", "Peace", "Thumbs Up", "Pointing", "Open Palm", or "Fist"
-
-  // for loop to capture if there is more than one hand on the screen. This applies the same process to all hands.
+  
   for (let i = 0; i < hands.length; i++) {
     let hand = hands[i];
     if (showKeypoints) {
       drawPoints(hand)
       drawConnections(hand)
     }
-    // console.log(hand);
-    let indexFingerTipX = hand.index_finger_tip.x;
-    let indexFingerTipY = hand.index_finger_tip.y;
-    /*
-    Start drawing on the hands here
-    */
 
-    // pinchCircle(hand)
-    fill(225, 225, 0);
-    ellipse(indexFingerTipX, indexFingerTipY, 30, 30);
+  /*
+    let faceCenterX = face.faceOval.centerX;
+    let faceCenterY = face.faceOval.centerY;
 
-    /*
-    Stop drawing on the hands here
+   
+  //Start drawing hands here
+  
+
+  let anchorX = faceCenterX+20; // X position of anchor
+  let anchorY = faceCenterY; // Y position of anchor
+
+  push();
+  translate(anchorX, anchorY);
+  rotate(radians(angle));
+  image(arm,faceCenterX+20,faceCenterY,300,223);
+  pop()
+  angle += 1;
+
     */
+  //Stop drawing hands 
+    
   }
-
-
 
   //------------------------------------------------------------
   //facePart
-  // for loop to capture if there is more than one face on the screen. This applies the same process to all faces. 
   for (let i = 0; i < faces.length; i++) {
     let face = faces[i]; // face holds all the keypoints of the face
     if (showKeypoints) {
       drawPoints(face)
     }
-    // console.log(face);
-    /*
-    Once this program has a face, it knows some things about it.
-    This includes how to draw a box around the face, and an oval. 
-    It also knows where the key points of the following parts are:
-     face.leftEye
-     face.leftEyebrow
-     face.lips
-     face.rightEye
-     face.rightEyebrow
-    */
-
+    let faceCenterX = face.faceOval.centerX;
+    let faceCenterY = face.faceOval.centerY;
+    let leftEyeCenterX = face.leftEye.centerX;
+    let leftEyeCenterY = face.leftEye.centerY;
+    let rightEyeCenterX = face.rightEye.centerX;
+    let rightEyeCenterY = face.rightEye.centerY;
     /*
     Start drawing on the face here
     */
 
-    // fill(225, 225, 0);
-    // ellipse(leftEyeCenterX, leftEyeCenterY, leftEyeWidth, leftEyeHeight);
+splashback()
 
-    drawPoints(face.leftEye);
-    drawPoints(face.leftEyebrow);
-    drawPoints(face.lips);
-    drawPoints(face.rightEye);
-    drawPoints(face.rightEyebrow);
-    /*
-    Stop drawing on the face here
-    */
 
+imageMode(CORNER)
+  image(neck,faceCenterX-30,faceCenterY,300,223);
+  image(shoulder,faceCenterX-56,faceCenterY,300,223);
+  image(face1,faceCenterX-70,faceCenterY-150,330,253);
+  image(legs,faceCenterX-100,faceCenterY+210,450,335);
+  image(shoe,faceCenterX-180,faceCenterY+495,450,335);//right shoe
+  image(shoe,faceCenterX,faceCenterY+507,450,335);//left shoe
+  image(body,faceCenterX-90,faceCenterY,330,253);
+  image(leftEye,leftEyeCenterX-33,leftEyeCenterY-23,300,223);
+  image(rightEye,rightEyeCenterX-29,rightEyeCenterY-19,300,223);
+  image(topLip,face.keypoints[0].x-20,face.keypoints[0].y-70,300,223);
+  image(bottomLip,face.keypoints[14].x-20,face.keypoints[14].y-70,300,223);
+  image(bottomLip,face.keypoints[14].x-20,face.keypoints[14].y-70,300,223);
+/*/
+
+imageMode(CENTRE)
+image(face1,100,100,330,253);
+
+/*/ 
+  //Stop drawing on the face here
   }
-  //------------------------------------------------------
-  // You can make addtional elements here, but keep the face drawing inside the for loop. 
+  // Addtional elements here. Keep  face drawing inside the for loop. 
 }
 
-
-function drawConnections(hand) {
-  // Draw the skeletal connections
-  push()
-  for (let j = 0; j < connections.length; j++) {
-    let pointAIndex = connections[j][0];
-    let pointBIndex = connections[j][1];
-    let pointA = hand.keypoints[pointAIndex];
-    let pointB = hand.keypoints[pointBIndex];
-    stroke(255, 0, 0);
-    strokeWeight(2);
-    line(pointA.x, pointA.y, pointB.x, pointB.y);
-  }
-  pop()
-}
-
-function pinchCircle(hand) { // adapted from https://editor.p5js.org/ml5/sketches/DNbSiIYKB
-  // Find the index finger tip and thumb tip
-  let finger = hand.index_finger_tip;
-  //let finger = hand.pinky_finger_tip;
-  let thumb = hand.thumb_tip;
-
-  // Draw circles at finger positions
-  let centerX = (finger.x + thumb.x) / 2;
-  let centerY = (finger.y + thumb.y) / 2;
-  // Calculate the pinch "distance" between finger and thumb
-  let pinch = dist(finger.x, finger.y, thumb.x, thumb.y);
-
-  // This circle's size is controlled by a "pinch" gesture
-  fill(0, 255, 0, 200);
-  stroke(0);
-  strokeWeight(2);
-  circle(centerX, centerY, pinch);
-
-}
-
-
-// This function draw's a dot on all the keypoints. It can be passed a whole face, or part of one. 
-function drawPoints(feature) {
-
-  push()
-  for (let i = 0; i < feature.keypoints.length; i++) {
-    let element = feature.keypoints[i];
-    noStroke();
-    fill(0, 255, 0);
-    circle(element.x, element.y, 5);
-  }
-  pop()
-
+function splashback(){
+noStroke()
+  fill(250)
+  rect(0,0,1290,960)
 }

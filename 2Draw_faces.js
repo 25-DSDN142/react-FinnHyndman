@@ -11,6 +11,8 @@ function prepareInteraction() {
   neck = loadImage('images/neck.png');
   shoulder = loadImage('images/shoulders.png');
   legs = loadImage('images/legs.png');
+  shoe = loadImage('images/shoe.png');
+
 
 }
 
@@ -80,6 +82,8 @@ function drawInteraction(faces, hands) {
   image(shoulder,faceCenterX-56,faceCenterY,300,223);
   image(face1,faceCenterX-70,faceCenterY-150,330,253);
   image(legs,faceCenterX-100,faceCenterY+210,450,335);
+  image(shoe,faceCenterX-180,faceCenterY+495,450,335);
+  image(shoe,faceCenterX,faceCenterY+507,450,335);//left shoe
   image(body,faceCenterX-90,faceCenterY,330,253);
   image(leftEye,leftEyeCenterX-33,leftEyeCenterY-23,300,223);
   image(rightEye,rightEyeCenterX-29,rightEyeCenterY-19,300,223);

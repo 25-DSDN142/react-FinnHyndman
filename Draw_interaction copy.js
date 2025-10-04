@@ -64,6 +64,9 @@ let angle = map(indexFingerTipY, 0, 960, TWO_PI, 0);
   pop();
 }
 
+
+   
+
   //Start drawing hands here
 
 
@@ -83,7 +86,9 @@ let angle = map(indexFingerTipY, 0, 960, TWO_PI, 0);
     let faceCenterX = face.faceOval.centerX;
     let faceCenterY = face.faceOval.centerY;
     let leftEyeCenterX = face.leftEye.centerX;
+    let leftEyeCenterY = face.leftEye.centerY;
     let rightEyeCenterX = face.rightEye.centerX;
+    let rightEyeCenterY = face.rightEye.centerY;
     /*
     Start drawing on the face here
     */
@@ -95,61 +100,40 @@ let angle = map(indexFingerTipY, 0, 960, TWO_PI, 0);
   image(shoe,faceCenterX,faceCenterY+507,450,335);//left shoe
   image(body,faceCenterX-90,faceCenterY,330,253);
   //image(leftEye,leftEyeCenterX-33,leftEyeCenterY-23,300,223);
- // image(topLip,face.keypoints[0].x-20,face.keypoints[0].y-70,300,223);
-  //image(bottomLip,face.keypoints[14].x-20,face.keypoints[14].y-70,300,223);
-  //image(bottomLip,face.keypoints[14].x-20,face.keypoints[14].y-70,300,223);
-
-  
-//EYES
-let eyeRangeX = 90; // max horizontal movement from center
-let eyeOffsetY = -50; // vertical offset relative to face center
-
-// Left Eye
-let leftEyeRelX = leftEyeCenterX - faceCenterX; 
-let leftEyeMappedX = constrain(faceCenterX + leftEyeRelX, faceCenterX - eyeRangeX, faceCenterX + eyeRangeX);
-let leftEyeMappedY = faceCenterY + eyeOffsetY; // keep roughly same Y
-image(eyeWhiteLeft, leftEyeMappedX-33, leftEyeMappedY-20, 300, 223);
-
-// Pupil
-leftEyeH = face.keypoints[374].y - face.keypoints[386].y;
-leftPupilH = map(leftEyeH, 15, 20, 10, 30);
-leftPupilH = constrain(leftPupilH, 0, 30);
-fill(0);
-ellipse(leftEyeMappedX, leftEyeMappedY, 30, leftPupilH);
-
-// Right Eye
-let rightEyeRelX = rightEyeCenterX - faceCenterX;
-let rightEyeMappedX = constrain(faceCenterX + rightEyeRelX, faceCenterX - eyeRangeX, faceCenterX + eyeRangeX);
-let rightEyeMappedY = faceCenterY + eyeOffsetY; 
-image(eyeWhiteRight, rightEyeMappedX, rightEyeMappedY-19, 300, 223);
-
-// Pupil
-rightEyeH = face.keypoints[374].y - face.keypoints[386].y;
-rightPupilH = map(rightEyeH, 15, 20, 10, 30);
-rightPupilH = constrain(rightPupilH, 0, 30);
-fill(0);
-ellipse(rightEyeMappedX + 25, rightEyeMappedY + 5, 30, rightPupilH);
+  image(topLip,face.keypoints[0].x-20,face.keypoints[0].y-70,300,223);
+  image(bottomLip,face.keypoints[14].x-20,face.keypoints[14].y-70,300,223);
+  image(bottomLip,face.keypoints[14].x-20,face.keypoints[14].y-70,300,223);
 
 
-//MOUTH
-let mouthRangeX = 50; // max horizontal movement
-let mouthRangeY = 20; // max vertical movement
-let mouthBaseY = faceCenterY + 80; // base Y for mouth
 
-// Top Lip
-let topLipX = constrain(face.keypoints[0].x, faceCenterX - mouthRangeX, faceCenterX + mouthRangeX);
-let topLipY = constrain(face.keypoints[0].y, mouthBaseY - mouthRangeY, mouthBaseY + mouthRangeY);
-image(topLip, topLipX - 20, topLipY - 70, 300, 223);
+//right eye draw
+image(eyeWhiteRight,rightEyeCenterX,rightEyeCenterY-19,300,223);
+rightEyeH =face.keypoints[374].y-face.keypoints[386].y
+rightPupilH = map (rightEyeH,15,20,10,30)
+rightPupilH = constrain(rightPupilH,0,30)
+fill(0)
+ellipse(rightEyeCenterX+25,rightEyeCenterY+5, 30, rightPupilH)
 
-// Bottom Lip
-let bottomX = constrain(face.keypoints[14].x, faceCenterX - mouthRangeX, faceCenterX + mouthRangeX);
-let bottomY = constrain(face.keypoints[14].y, mouthBaseY - mouthRangeY, mouthBaseY + mouthRangeY);
-image(bottomLip, bottomX - 20, bottomY - 70, 300, 223);
+//left eye draw
+
+image(eyeWhiteLeft,leftEyeCenterX-33,leftEyeCenterY-20,300,223);
+leftEyeH =face.keypoints[374].y-face.keypoints[386].y
+leftPupilH = map (leftEyeH,15,20,10,30)
+leftPupilH = constrain(leftPupilH,0,30)
+fill(0)
+ellipse(leftEyeCenterX,leftEyeCenterY,30, leftPupilH)
 
 
+
+/*/
+
+imageMode(CENTRE)
+image(face1,100,100,330,253);
+
+/*/ 
   //Stop drawing on the face here
   }
-  // Addtional elements here. Keep face drawing inside the for loop. 
+  // Addtional elements here. Keep  face drawing inside the for loop. 
 }
 
 function splashback(){
@@ -158,6 +142,16 @@ noStroke()
   rect(0,0,1290,960)
 }
 
+/*
+function rightEye(eyeWhiteRight,){
+imageMode(CENTRE)
+image(eyeWhiteRight,rightEyeCenterX,rightEyeCenterY-19,300,223);
+
+pupilH = map (face.keypoints[374].y, face.keypoints[396].y,10,20)
+
+fill(0)
+ellipse(rightEyeCenterX,rightEyeCenterY, 30, pupilH)
+*/
 
 
 

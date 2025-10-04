@@ -19,12 +19,14 @@ function prepareInteraction() {
   bottomLip = loadImage('images/MouthBottom.png');
   neck = loadImage('images/neck.png');
   shoulder = loadImage('images/shoulders.png');
-  arm = loadImage('images/arm.png');
+  arm = loadImage('images/Armcopy.png');
+  armRight = loadImage('images/armRight.png');
   body = loadImage('images/body.png');
   legs = loadImage('images/legs.png');
   shoe = loadImage('images/shoe.png');
   eyeWhiteRight = loadImage('images/eyeWhiteRight.png');
   eyeWhiteLeft = loadImage('images/eyeWhiteLeft.png');
+  splashback()
 
   
 }
@@ -38,25 +40,37 @@ function drawInteraction(faces, hands) {
       drawConnections(hand)
     }
 
-  /*
-    let faceCenterX = face.faceOval.centerX;
-    let faceCenterY = face.faceOval.centerY;
-
-   
-  //Start drawing hands here
-  
-
-  let anchorX = faceCenterX+20; // X position of anchor
-  let anchorY = faceCenterY; // Y position of anchor
+//arms function.
+ if (hand.handedness === "Left") {
+  let indexFingerTipY = hand.index_finger_tip.y;
+let angle = map(indexFingerTipY, 0, 960, TWO_PI, 0);
 
   push();
-  translate(anchorX, anchorY);
-  rotate(radians(angle));
-  image(arm,faceCenterX+20,faceCenterY,300,223);
-  pop()
-  angle += 1;
+  translate(600, 600);   // anchor for left arm
+  rotate(angle);
+  image(arm, 0, 0, 300, 50);
+  pop();
+}
 
-    */
+if (hand.handedness === "Right") {
+  let indexFingerTipY = hand.index_finger_tip.y;
+let angle = map(indexFingerTipY, 0, 960, TWO_PI, 0);
+
+  push();
+  translate(700, 600);   // anchor for right arm
+  scale(-1, 1);          // mirror horizontally
+  rotate(angle);         // SAME angle as left arm now
+  image(armRight, 0, 0, 300, 50);
+  pop();
+}
+
+
+   
+
+  //Start drawing hands here
+
+
+
   //Stop drawing hands 
     
   }
@@ -78,7 +92,6 @@ function drawInteraction(faces, hands) {
     /*
     Start drawing on the face here
     */
-  splashback()
   image(neck,faceCenterX-30,faceCenterY,300,223);
   image(shoulder,faceCenterX-56,faceCenterY,300,223);
   image(face1,faceCenterX-70,faceCenterY-150,330,253);
@@ -90,6 +103,7 @@ function drawInteraction(faces, hands) {
   image(topLip,face.keypoints[0].x-20,face.keypoints[0].y-70,300,223);
   image(bottomLip,face.keypoints[14].x-20,face.keypoints[14].y-70,300,223);
   image(bottomLip,face.keypoints[14].x-20,face.keypoints[14].y-70,300,223);
+
 
 
 //right eye draw
@@ -108,6 +122,7 @@ leftPupilH = map (leftEyeH,15,20,10,30)
 leftPupilH = constrain(leftPupilH,0,30)
 fill(0)
 ellipse(leftEyeCenterX,leftEyeCenterY,30, leftPupilH)
+
 
 
 /*/

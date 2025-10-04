@@ -18,14 +18,8 @@ function drawInteraction(faces, hands) {
     let indexFingerTipX = hand.index_finger_tip.x;
     let indexFingerTipY = hand.index_finger_tip.y;
 
-    let pinkyFingerTipX = hand.pinky_finger_tip.x;
-    let pinkyFingerTipY = hand.pinky_finger_tip.y;
-
-    let ringFingerTipX = hand.ring_finger_tip.x;
-    let ringFingerTipY = hand.ring_finger_tip.y;
-
-    let thumbTipX = hand.thumb_tip.x;
-    let thumbTipY = hand.thumb_tip.y;
+    let indexFingerMCPx = hand.index_finger_MCP.x;
+    let indexFingerMCPY = hand.index_finger_MCP.y;
 
 
     /*

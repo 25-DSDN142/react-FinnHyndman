@@ -64,9 +64,6 @@ let angle = map(indexFingerTipY, 0, 960, TWO_PI, 0);
   pop();
 }
 
-
-   
-
   //Start drawing hands here
 
 
@@ -101,7 +98,6 @@ let angle = map(indexFingerTipY, 0, 960, TWO_PI, 0);
   image(body,faceCenterX-90,faceCenterY,330,253);
   //image(leftEye,leftEyeCenterX-33,leftEyeCenterY-23,300,223);
   image(topLip,face.keypoints[0].x-20,face.keypoints[0].y-70,300,223);
-  image(bottomLip,face.keypoints[14].x-20,face.keypoints[14].y-70,300,223);
   image(bottomLip,face.keypoints[14].x-20,face.keypoints[14].y-70,300,223);
 
 

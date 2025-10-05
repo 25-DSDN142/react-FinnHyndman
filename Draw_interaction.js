@@ -23,9 +23,14 @@ function prepareInteraction() {
   armRight = loadImage('images/armRight.png');
   body = loadImage('images/body.png');
   legs = loadImage('images/legs.png');
+  hips = loadImage('images/hip.png');
+  leftLeg = loadImage('images/leftLeg.png');
+  rightLeg = loadImage('images/rightLeg.png');
   shoe = loadImage('images/shoe.png');
   eyeWhiteRight = loadImage('images/eyeWhiteRight.png');
   eyeWhiteLeft = loadImage('images/eyeWhiteLeft.png');
+  donut = loadImage('images/donut.png');
+
   splashback()
 
   
@@ -33,6 +38,7 @@ function prepareInteraction() {
 
 function drawInteraction(faces, hands) {
   
+
   for (let i = 0; i < hands.length; i++) {
     let hand = hands[i];
     if (showKeypoints) {
@@ -46,7 +52,7 @@ function drawInteraction(faces, hands) {
 let angle = map(indexFingerTipY, 0, 960, TWO_PI, 0);
 
   push();
-  translate(600, 600);   // anchor for left arm
+  translate(600, 500);   // anchor for left arm
   rotate(angle);
   image(arm, 0, 0, 300, 50);
   pop();
@@ -57,13 +63,34 @@ if (hand.handedness === "Right") {
 let angle = map(indexFingerTipY, 0, 960, TWO_PI, 0);
 
   push();
-  translate(700, 600);   // anchor for right arm
+  translate(700, 500);   // anchor for right arm
   scale(-1, 1);          // mirror horizontally
-  rotate(angle);         // SAME angle as left arm now
+  rotate(angle);         
   image(armRight, 0, 0, 300, 50);
   pop();
 }
 
+//legs
+if (hand.handedness === "Right") {
+  let pinkyFingerTipY = hand.pinky_finger_tip.y;
+let angle = map(pinkyFingerTipY, 0, 960, TWO_PI, 0);
+  push();
+  translate(675, 700);   // anchor for right leg
+  scale(-1, 1);          // mirror horizontally
+  rotate(angle);         
+  image(leftLeg, 0, 0, 450, 335);
+  pop();
+}
+
+if (hand.handedness === "Left") {
+  let pinkyFingerTipY = hand.pinky_finger_tip.y;
+let angle = map(pinkyFingerTipY, 0, 960, TWO_PI, 0);
+  push();
+  translate(625, 700);   // anchor for left arm
+  rotate(angle);
+  image(leftLeg, 0, 0, 450, 335);
+  pop();
+}
   //Start drawing hands here
 
 
@@ -90,9 +117,9 @@ let angle = map(indexFingerTipY, 0, 960, TWO_PI, 0);
   image(neck,faceCenterX-30,faceCenterY,300,223);
   image(shoulder,faceCenterX-56,faceCenterY,300,223);
   image(face1,faceCenterX-70,faceCenterY-150,330,253);
-  image(legs,faceCenterX-100,faceCenterY+210,450,335);
-  image(shoe,faceCenterX-180,faceCenterY+495,450,335);//right shoe
-  image(shoe,faceCenterX,faceCenterY+507,450,335);//left shoe
+  image(hips,faceCenterX-100,faceCenterY+210,450,335);
+  //image(shoe,faceCenterX-180,faceCenterY+495,450,335);//right shoe
+  //image(shoe,faceCenterX,faceCenterY+507,450,335);//left shoe
   image(body,faceCenterX-90,faceCenterY,330,253);
   //image(leftEye,leftEyeCenterX-33,leftEyeCenterY-23,300,223);
  // image(topLip,face.keypoints[0].x-20,face.keypoints[0].y-70,300,223);
@@ -107,7 +134,7 @@ let eyeOffsetY = -50; // vertical offset relative to face center
 // Left Eye
 let leftEyeRelX = leftEyeCenterX - faceCenterX; 
 let leftEyeMappedX = constrain(faceCenterX + leftEyeRelX, faceCenterX - eyeRangeX, faceCenterX + eyeRangeX);
-let leftEyeMappedY = faceCenterY + eyeOffsetY; // keep roughly same Y
+let leftEyeMappedY = faceCenterY + eyeOffsetY; 
 image(eyeWhiteLeft, leftEyeMappedX-33, leftEyeMappedY-20, 300, 223);
 
 // Pupil
@@ -142,9 +169,22 @@ let topLipY = constrain(face.keypoints[0].y, mouthBaseY - mouthRangeY, mouthBase
 image(topLip, topLipX - 20, topLipY - 70, 300, 223);
 
 // Bottom Lip
-let bottomX = constrain(face.keypoints[14].x, faceCenterX - mouthRangeX, faceCenterX + mouthRangeX);
-let bottomY = constrain(face.keypoints[14].y, mouthBaseY - mouthRangeY, mouthBaseY + mouthRangeY);
-image(bottomLip, bottomX - 20, bottomY - 70, 300, 223);
+let bottomLipX = constrain(face.keypoints[14].x, faceCenterX - mouthRangeX, faceCenterX + mouthRangeX);
+let bottomLipY = constrain(face.keypoints[14].y, mouthBaseY - mouthRangeY, mouthBaseY + mouthRangeY);
+image(bottomLip, bottomLipX - 20, bottomLipY - 70, 300, 223);
+
+//donut vomit
+let mouthCentreX = topLipX - bottomLipX
+let mouthCentreY = bottomLipY - topLipY
+
+mouthCentreX = constrain(mouthCentreX, -mouthRangeX, mouthRangeX);
+mouthCentreY = constrain(mouthCentreY, 0, mouthRangeY); // vertical only downwards
+
+if (mouthCentreY > 19) {
+image(donut,face.keypoints[0].x-20, face.keypoints[0].y-mouthCentreY-20, 300,223);
+}
+
+
 
 
   //Stop drawing on the face here

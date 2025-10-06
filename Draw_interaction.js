@@ -198,6 +198,7 @@ function drawInteraction(faces, hands) {
     mouthCentreY = constrain(mouthCentreY, 0, mouthRangeY); // vertical only downwards
 
     // draw donut animation after 2 seconds
+
    if (mouthCentreY > 19) {
     if (mouthTimer === null) {
       mouthTimer = millis(); // start timer

@@ -45,23 +45,6 @@ function drawInteraction(faces, hands) {
   fill(250)
   rect(0, 0, 1290, 960)
 
-  //screenshot function
-  if (!screenshotTaken) {
-    if (key === 's') {
-      if (screenshotTimer === null) {
-        // start timer the moment condition is first met
-        screenshotTimer = millis();
-      }
-      // check 4 seconds since mouthTimer start
-      if ((millis() - screenshotTimer) >= 4000) {
-        saveCanvas('ml5-capture-' + frameCount, 'png');
-        screenshotTaken = true
-        screenshotTimer = null;
-      }
-    } else {
-      screenshotTimer = null;
-    }
-  }
 
   for (let i = 0; i < hands.length; i++) {
     let hand = hands[i];
@@ -211,17 +194,39 @@ function drawInteraction(faces, hands) {
     // check 2 seconds since mouth opened
     if ((millis() - mouthTimer) >= 2000) {
      
-     
-      image(donut, face.keypoints[0].x - 20, face.keypoints[0].y - mouthCentreY - 20 + donutY, 300, 223);
-      donutY += 10; 
+    fill()
+    rect(random(width), random(height), random(width), random(height));
+
+
+      //image(donut, face.keypoints[0].x - 20, face.keypoints[0].y - mouthCentreY - 20 + donutY, 300, 223);
+     // donutY += 10; 
     }
   } else {
     mouthTimer = null;
-    donutY = 0; // reset if mouth closes
+    //donutY = 0; // reset if mouth closes
   }
 
 
     //Stop drawing on the face here
   }
   // Addtional elements here. Keep face drawing inside the for loop. 
+
+
+   //screenshot function
+  if (!screenshotTaken) {
+    if (key === 's') {
+      if (screenshotTimer === null) {
+        // start timer the moment condition is first met
+        screenshotTimer = millis();
+      }
+      // check 4 seconds since mouthTimer start
+      if ((millis() - screenshotTimer) >= 4000) {
+        saveCanvas('ml5-capture-' + frameCount, 'png');
+        screenshotTaken = true
+        screenshotTimer = null;
+      }
+    } else {
+      screenshotTimer = null;
+    }
+  }
 }

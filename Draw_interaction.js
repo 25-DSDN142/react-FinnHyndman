@@ -33,6 +33,7 @@ function prepareInteraction() {
   shoe = loadImage('images/shoe.png');
   eyeWhiteRight = loadImage('images/eyeWhiteRight.png');
   eyeWhiteLeft = loadImage('images/eyeWhiteLeft.png');
+  hair = loadImage('images/hair.png');
   donut = loadImage('images/donut.png');
   startTime = millis(); //set up seconds counter
 
@@ -138,9 +139,9 @@ function drawInteraction(faces, hands) {
     */
     image(neck, faceCenterX - 30, faceCenterY, 300, 223);
     image(shoulder, faceCenterX - 56, faceCenterY, 300, 223);
+    image(hair, faceCenterX - 70, faceCenterY - 150, 330, 253);
     image(face1, faceCenterX - 70, faceCenterY - 150, 330, 253);
     image(hips, faceCenterX - 100, faceCenterY + 210, 450, 335);
-
     image(body, faceCenterX - 90, faceCenterY, 330, 253);
 
 

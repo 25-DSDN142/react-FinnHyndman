@@ -196,10 +196,9 @@ function drawInteraction(faces, hands) {
     mouthCentreY = constrain(mouthCentreY, 0, mouthRangeY); // vertical only downwards
 
     // draw donut animation after 2 seconds
-
- // r = random(255); 
- // g = random(100,255);
- // b = random(255); 
+    // r = random(255); 
+    // g = random(100,255);
+    // b = random(255); 
 
    if (mouthCentreY > 19) {
     if (mouthTimer === null) {
@@ -208,22 +207,22 @@ function drawInteraction(faces, hands) {
     // check 2 seconds since mouth opened
     if ((millis() - mouthTimer) >= 2000) {
     
-    noStroke();
-    fill(r, g, b);
+    //noStroke();
+    //fill(r, g, b);
 
-    //image(donut, random(width), random(height), 300, 223)
-    //image(kiwi, random(width), random(height), 300, 223)
-    //image(cookie, random(width), random(height),300, 223)
-    //image(ball, random(width), random(height), 300, 223)
-    //image(star, random(width), random(height), 300, 223)
+    image(donut, random(width), random(height), 300, 223)
+    image(kiwi, random(width), random(height), 300, 223)
+    image(cookie, random(width), random(height),300, 223)
+    image(ball, random(width), random(height), 300, 223)
+    image(star, random(width), random(height), 300, 223)
 
-    rect(random(width), random(height), random(width), random(height));
+    //rect(random(width), random(height), random(width), random(height));
     //image(donut, face.keypoints[0].x - 20, face.keypoints[0].y - mouthCentreY - 20 + donutY, 300, 223);
-    // donutY += 10; 
+    //donutY += 10; 
     }
   } else {
     mouthTimer = null;
-    donutY = 0; // reset if mouth closes
+   // donutY = 0; // reset if mouth closes
   }
 
     //Stop drawing on the face here

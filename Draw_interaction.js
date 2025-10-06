@@ -13,6 +13,7 @@ let faceCenterX;
 let faceCenterY;
 let leftEyeCenterX;
 let rightEyeCenterX;
+let rightEyebrowCenterY 
 let screenshotTaken = false;
 
 function prepareInteraction() {
@@ -132,6 +133,7 @@ function drawInteraction(faces, hands) {
     faceCenterY = face.faceOval.centerY;
     leftEyeCenterX = face.leftEye.centerX;
     rightEyeCenterX = face.rightEye.centerX;
+    rightEyebrowCenterY = face.rightEyebrow.centerY;
 
 
     /*
@@ -139,11 +141,13 @@ function drawInteraction(faces, hands) {
     */
     image(neck, faceCenterX - 30, faceCenterY, 300, 223);
     image(shoulder, faceCenterX - 56, faceCenterY, 300, 223);
-    image(hair, faceCenterX - 70, faceCenterY - 150, 330, 253);
+
+    image(hair, faceCenterX - 70, faceCenterY-160, 330, 253);
     image(face1, faceCenterX - 70, faceCenterY - 150, 330, 253);
     image(hips, faceCenterX - 100, faceCenterY + 210, 450, 335);
     image(body, faceCenterX - 90, faceCenterY, 330, 253);
 
+ 
 
     //EYES
     let eyeRangeX = 90; // max horizontal movement from center
@@ -204,14 +208,12 @@ function drawInteraction(faces, hands) {
     if (mouthTimer === null) {
       mouthTimer = millis(); // start timer
     }
-
     // check 2 seconds since mouth opened
     if ((millis() - mouthTimer) >= 2000) {
-      // draw donut
+     
+     
       image(donut, face.keypoints[0].x - 20, face.keypoints[0].y - mouthCentreY - 20 + donutY, 300, 223);
-
-      // gradually increase donutY over time
-      donutY += 10; // increases 1 unit per frame after 2 seconds
+      donutY += 10; 
     }
   } else {
     mouthTimer = null;

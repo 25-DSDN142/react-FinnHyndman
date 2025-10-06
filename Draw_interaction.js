@@ -10,6 +10,12 @@ let shoulder;
 let legs;
 let shoe;
 let arm;
+let faceCenterX; 
+let faceCenterY;
+let leftEyeCenterX;
+let rightEyeCenterX; 
+let screenshotTaken = false;
+
 
 function prepareInteraction() {
   face1 = loadImage('images/Face.png');
@@ -30,14 +36,35 @@ function prepareInteraction() {
   eyeWhiteRight = loadImage('images/eyeWhiteRight.png');
   eyeWhiteLeft = loadImage('images/eyeWhiteLeft.png');
   donut = loadImage('images/donut.png');
+  startTime = millis(); //set up seconds counter
 
-  splashback()
-
-  
 }
 
 function drawInteraction(faces, hands) {
-  
+//anglemode()
+noStroke()
+fill(250)
+rect(0,0,1290,960)
+
+//screenshot function
+  if (!screenshotTaken) {
+    if (key === 's') {
+     if (screenshotTimer === null) {
+      // start timer the moment condition is first met
+      screenshotTimer = millis();
+    }
+    // check 4 seconds since mouthTimer start
+    if ((millis() - screenshotTimer) >= 4000) {
+    saveCanvas('ml5-capture-' + frameCount, 'png');
+    screenshotTaken = true
+    screenshotTimer = null;
+
+    }
+
+    } else {
+    screenshotTimer = null;
+  }
+  }
 
   for (let i = 0; i < hands.length; i++) {
     let hand = hands[i];
@@ -46,37 +73,40 @@ function drawInteraction(faces, hands) {
       drawConnections(hand)
     }
 
+//Start drawing hands here
+
 //arms function.
- if (hand.handedness === "Left") {
-  let indexFingerTipY = hand.index_finger_tip.y;
-let angle = map(indexFingerTipY, 0, 960, TWO_PI, 0);
+if (hand.handedness === "Left") {
+let indexFingerTipY = hand.index_finger_tip.y;
+let angle = map(indexFingerTipY, 0, 960, TWO_PI, 0); //math for PI done by AI
 
   push();
-  translate(600, 500);   // anchor for left arm
+  translate(faceCenterX-45, faceCenterY+35);   // anchor for left arm
   rotate(angle);
   image(arm, 0, 0, 300, 50);
   pop();
 }
 
+
 if (hand.handedness === "Right") {
   let indexFingerTipY = hand.index_finger_tip.y;
-let angle = map(indexFingerTipY, 0, 960, TWO_PI, 0);
-
+let angle = map(indexFingerTipY, 0, 960, TWO_PI, 0); //math for PI done by AI
   push();
-  translate(700, 500);   // anchor for right arm
-  scale(-1, 1);          // mirror horizontally
+  translate(faceCenterX+55, faceCenterY+40);   // anchor for right arm
+  scale(-1, 1);
   rotate(angle);         
   image(armRight, 0, 0, 300, 50);
   pop();
 }
 
+
 //legs
 if (hand.handedness === "Right") {
   let pinkyFingerTipY = hand.pinky_finger_tip.y;
-let angle = map(pinkyFingerTipY, 0, 960, TWO_PI, 0);
+let angle = map(pinkyFingerTipY, 0, 960, TWO_PI, 0); //math for PI done by AI
   push();
-  translate(675, 700);   // anchor for right leg
-  scale(-1, 1);          // mirror horizontally
+  translate(faceCenterX+20, faceCenterY+260);   // anchor for right leg
+  scale(-1, 1);
   rotate(angle);         
   image(leftLeg, 0, 0, 450, 335);
   pop();
@@ -84,19 +114,15 @@ let angle = map(pinkyFingerTipY, 0, 960, TWO_PI, 0);
 
 if (hand.handedness === "Left") {
   let pinkyFingerTipY = hand.pinky_finger_tip.y;
-let angle = map(pinkyFingerTipY, 0, 960, TWO_PI, 0);
+let angle = map(pinkyFingerTipY, 0, 960, TWO_PI, 0); //math for PI done by AI
   push();
-  translate(625, 700);   // anchor for left arm
+  translate(faceCenterX-20, faceCenterY+260);  // anchor for left leg
   rotate(angle);
   image(leftLeg, 0, 0, 450, 335);
   pop();
 }
-  //Start drawing hands here
 
-
-
-  //Stop drawing hands 
-    
+  //Stop drawing hands  
   }
 
   //------------------------------------------------------------
@@ -107,10 +133,12 @@ let angle = map(pinkyFingerTipY, 0, 960, TWO_PI, 0);
     if (showKeypoints) {
       drawPoints(face)
     }
-    let faceCenterX = face.faceOval.centerX;
-    let faceCenterY = face.faceOval.centerY;
-    let leftEyeCenterX = face.leftEye.centerX;
-    let rightEyeCenterX = face.rightEye.centerX;
+faceCenterX = face.faceOval.centerX;
+faceCenterY = face.faceOval.centerY;
+leftEyeCenterX = face.leftEye.centerX;
+rightEyeCenterX = face.rightEye.centerX;
+
+
     /*
     Start drawing on the face here
     */
@@ -118,13 +146,8 @@ let angle = map(pinkyFingerTipY, 0, 960, TWO_PI, 0);
   image(shoulder,faceCenterX-56,faceCenterY,300,223);
   image(face1,faceCenterX-70,faceCenterY-150,330,253);
   image(hips,faceCenterX-100,faceCenterY+210,450,335);
-  //image(shoe,faceCenterX-180,faceCenterY+495,450,335);//right shoe
-  //image(shoe,faceCenterX,faceCenterY+507,450,335);//left shoe
+  
   image(body,faceCenterX-90,faceCenterY,330,253);
-  //image(leftEye,leftEyeCenterX-33,leftEyeCenterY-23,300,223);
- // image(topLip,face.keypoints[0].x-20,face.keypoints[0].y-70,300,223);
-  //image(bottomLip,face.keypoints[14].x-20,face.keypoints[14].y-70,300,223);
-  //image(bottomLip,face.keypoints[14].x-20,face.keypoints[14].y-70,300,223);
 
   
 //EYES
@@ -180,24 +203,22 @@ let mouthCentreY = bottomLipY - topLipY
 mouthCentreX = constrain(mouthCentreX, -mouthRangeX, mouthRangeX);
 mouthCentreY = constrain(mouthCentreY, 0, mouthRangeY); // vertical only downwards
 
+// draw donut animation after 2 seconds
 if (mouthCentreY > 19) {
-image(donut,face.keypoints[0].x-20, face.keypoints[0].y-mouthCentreY-20, 300,223);
+    if (mouthTimer === null) {
+      // start timer the moment condition is first met
+      mouthTimer = millis();
+    }
+    // check 4 seconds since mouthTimer start
+    if ((millis() - mouthTimer) >= 2000) {
+      image(donut, face.keypoints[0].x - 20, face.keypoints[0].y - mouthCentreY - 20, 300, 223);
+    }
+  } else {
+    mouthTimer = null;
 }
-
-
-
 
   //Stop drawing on the face here
   }
   // Addtional elements here. Keep face drawing inside the for loop. 
 }
-
-function splashback(){
-noStroke()
-  fill(250)
-  rect(0,0,1290,960)
-}
-
-
-
 

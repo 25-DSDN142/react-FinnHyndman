@@ -653,6 +653,7 @@ function keyPressed() {
     clearPainting();
   }
   
+  
   // Take screenshot
   if (key === '!') {
     saveCanvas('ml5-capture-' + frameCount, 'png');

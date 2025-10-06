@@ -9,6 +9,11 @@ let shoulder;
 let legs;
 let shoe;
 let arm;
+let kiwi;
+let star;
+let cookie;
+let ball;
+
 let faceCenterX;
 let faceCenterY;
 let leftEyeCenterX;
@@ -36,6 +41,11 @@ function prepareInteraction() {
   eyeWhiteLeft = loadImage('images/eyeWhiteLeft.png');
   hair = loadImage('images/hair.png');
   donut = loadImage('images/donut.png');
+  star = loadImage('images/star.png');
+  kiwi = loadImage('images/kiwi.png');
+  cookie = loadImage('images/cookie.png');
+  ball = loadImage('images/ball.png');
+
   startTime = millis(); //set up seconds counter
 
 }
@@ -122,17 +132,17 @@ function drawInteraction(faces, hands) {
     /*
     Start drawing on the face here
     */
+
+    //body parts
     image(neck, faceCenterX - 30, faceCenterY, 300, 223);
     image(shoulder, faceCenterX - 56, faceCenterY, 300, 223);
-
     image(hair, faceCenterX - 70, faceCenterY-160, 330, 253);
     image(face1, faceCenterX - 70, faceCenterY - 150, 330, 253);
     image(hips, faceCenterX - 100, faceCenterY + 210, 450, 335);
     image(body, faceCenterX - 90, faceCenterY, 330, 253);
 
- 
-
-    //EYES
+    
+    //EYES!
     let eyeRangeX = 90; // max horizontal movement from center
     let eyeOffsetY = -50; // vertical offset relative to face center
 
@@ -163,7 +173,7 @@ function drawInteraction(faces, hands) {
     ellipse(rightEyeMappedX + 25, rightEyeMappedY + 5, 30, rightPupilH);
 
 
-    //MOUTH
+    //MOUTH!
     let mouthRangeX = 50; // max horizontal movement
     let mouthRangeY = 20; // max vertical movement
     let mouthBaseY = faceCenterY + 80; // base Y for mouth
@@ -187,7 +197,7 @@ function drawInteraction(faces, hands) {
 
     // draw donut animation after 2 seconds
 
-//  r = random(255); 
+ // r = random(255); 
  // g = random(100,255);
  // b = random(255); 
 
@@ -198,20 +208,22 @@ function drawInteraction(faces, hands) {
     // check 2 seconds since mouth opened
     if ((millis() - mouthTimer) >= 2000) {
     
-    //noStroke();
-    //fill(r, g, b);
+    noStroke();
+    fill(r, g, b);
 
-    image(donut, random(width), random(height), random(width), random(height))
+    //image(donut, random(width), random(height), 300, 223)
+    //image(kiwi, random(width), random(height), 300, 223)
+    //image(cookie, random(width), random(height),300, 223)
+    //image(ball, random(width), random(height), 300, 223)
+    //image(star, random(width), random(height), 300, 223)
 
-   // rect(random(width), random(height), random(width), random(height));
-
-
-      //image(donut, face.keypoints[0].x - 20, face.keypoints[0].y - mouthCentreY - 20 + donutY, 300, 223);
-     // donutY += 10; 
+    rect(random(width), random(height), random(width), random(height));
+    //image(donut, face.keypoints[0].x - 20, face.keypoints[0].y - mouthCentreY - 20 + donutY, 300, 223);
+    // donutY += 10; 
     }
   } else {
     mouthTimer = null;
-    //donutY = 0; // reset if mouth closes
+    donutY = 0; // reset if mouth closes
   }
 
     //Stop drawing on the face here

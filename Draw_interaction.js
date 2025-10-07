@@ -19,7 +19,7 @@ let faceCenterY;
 let leftEyeCenterX;
 let rightEyeCenterX;
 let rightEyebrowCenterY 
-let screenshotTaken = false;
+let screenshotTimer = null;
 
 function prepareInteraction() {
   face1 = loadImage('images/Face.png');
@@ -202,40 +202,34 @@ function drawInteraction(faces, hands) {
     }
     // check 2 seconds since mouth opened
     if ((millis() - mouthTimer) >= 2000) {
-    image(donut, random(width), random(height), 300, 223)
-    image(kiwi, random(width), random(height), 300, 223)
-    image(cookie, random(width), random(height),300, 223)
-    image(ball, random(width), random(height), 300, 223)
-    image(star, random(width), random(height), 300, 223)
+    //image(donut, random(width), random(height), 300, 223)
+    //image(kiwi, random(width), random(height), 300, 223)
+    //image(cookie, random(width), random(height),300, 223)
+    //image(ball, random(width), random(height), 300, 223)
+    //image(star, random(width), random(height), 300, 223)
 
-    //image(donut, face.keypoints[0].x - 20, face.keypoints[0].y - mouthCentreY - 20 + donutY, 300, 223);
-   // donutY += 10; 
+    image(donut, face.keypoints[0].x - 20, face.keypoints[0].y - mouthCentreY - 20 + donutY, 300, 223);
+    donutY += 10; 
     }
   } else {
     mouthTimer = null;
-    //donutY = 0; // reset if mouth closes
+    donutY = 0; // reset if mouth closes
   }
 
     //Stop drawing on the face here
   }
   // Addtional elements here. Keep face drawing inside the for loop. 
+}
 
-
-   //screenshot function
-  if (!screenshotTaken) {
-    if (key === 's') {
-      if (screenshotTimer === null) {
-        // start timer the moment condition is first met
-        screenshotTimer = millis();
-      }
-      // check 4 seconds since mouthTimer start
-      if ((millis() - screenshotTimer) >= 4000) {
-        saveCanvas('ml5-capture-' + frameCount, 'png');
-        screenshotTaken = true
-        screenshotTimer = null;
-      }
-    } else {
-      screenshotTimer = null;
-    }
+  function keyPressed() {
+  if (key === 's') {
+    saveGif('mySketch', 5);
+    frameRate(10);
+  }
+  if (key === 'f') {
+     frameRate(8)
+  }
+    if (key === 'd') {
+     frameRate(60)
   }
 }

@@ -21,8 +21,9 @@ let rightEyeCenterX;
 let rightEyebrowCenterY 
 let screenshotTimer = null;
 
-let donutParticles = []; // array to store particles
-let lastDonutTime = 0;   // track time between spawns
+let donutParticles = [];
+let mouthOpenTimer = null; // track when mouth opened
+let lastDonutTime = 0;     // for spacing between donuts
 
 
 function prepareInteraction() {
@@ -192,29 +193,58 @@ function drawInteraction(faces, hands) {
     let bottomLipY = constrain(face.keypoints[14].y, mouthBaseY - mouthRangeY, mouthBaseY + mouthRangeY);
     image(bottomLip, bottomLipX - 20, bottomLipY - 70, 300, 223);
 
-    //donut vomit
-    let mouthCentreX = topLipX - bottomLipX
-    let mouthCentreY = bottomLipY - topLipY
-
-    mouthCentreX = constrain(mouthCentreX, -mouthRangeX, mouthRangeX);
-    mouthCentreY = constrain(mouthCentreY, 0, mouthRangeY); // vertical only downwards
-
-    // draw donut animation after 2 seconds
-   if (mouthCentreY > 19) {
-    if (mouthTimer === null) {
-      mouthTimer = millis(); 
-    }
-    // check 2 seconds since mouth opened
-    if ((millis() - mouthTimer) >= 2000) {
 
 
-    image(donut, face.keypoints[0].x - 20, face.keypoints[0].y - mouthCentreY - 20 + donutY, 300, 223);
-    donutY += 10; 
-    }
-  } else {
-    mouthTimer = null;
-    donutY = 0; // reset if mouth closes
+let mouthCentreX = topLipX - bottomLipX;
+let mouthCentreY = bottomLipY - topLipY;
+mouthCentreX = constrain(mouthCentreX, -mouthRangeX, mouthRangeX);
+mouthCentreY = constrain(mouthCentreY, 0, mouthRangeY); // vertical only
+
+if (mouthCentreY > 19) { 
+  if (mouthOpenTimer === null) {
+    mouthOpenTimer = millis(); 
   }
+} else {
+  mouthOpenTimer = null;     // reset timer if mouth closes
+}
+//AI Assisted Code (F.H is for my own comments to show understanding of code)
+
+//spawn donuts after 2 seconds of mouth open F.H
+if (mouthOpenTimer !== null && millis() - mouthOpenTimer >= 2000) {
+  // only spawn new donut after 0.1s have passed since the last one F.H
+  if (millis() - lastDonutTime > 100) { 
+    // create a new donut particle object F.H
+    let newDonut = {
+      x: face.keypoints[0].x - 20,                // start X position F.H
+      y: face.keypoints[0].y - mouthCentreY - 20, // start Y position F.H
+      vx: random(-1, 1),                          // horizontal speed F.H
+      vy: random(-5, -2),                         // vertical speed F.H
+      alpha: 255                                  // opacity F.H
+    };
+    
+    donutParticles.push(newDonut);  // add this donut to the array of active particles F.H
+    lastDonutTime = millis();       // reset the last spawn time F.H
+  }
+}
+
+// --- UPDATE AND DRAW DONUTS EACH FRAME ---
+for (let i = 0; i < donutParticles.length; i++) {
+  let p = donutParticles[i];   
+  p.x += p.vx;                  // horizontal movement F.H
+  p.y += p.vy;                  // vertical movement F.H
+  p.vy += 0.2;                  // applying gravity  F.H
+  //p.alpha -= 5;               // reduce opacity each frame to fade out over time F.H
+ 
+  tint(255, p.alpha);           // apply transparency F.H
+  image(donut, p.x, p.y, 330, 253); 
+  noTint();                      // reset tint F.H
+}
+
+// --- REMOVE DONUTS THAT HAVE FADED ---
+donutParticles = donutParticles.filter(p => p.alpha > 0); 
+// keep only particles that have not fully faded F.H
+
+//AI Assisted Code end
 
     //Stop drawing on the face here
   }

@@ -21,6 +21,11 @@ let rightEyeCenterX;
 let rightEyebrowCenterY 
 let screenshotTimer = null;
 
+let mouthTimer = null;
+let laserActive = false;
+let laserX = 0;
+let laserY = 0;
+let donutX = 0;
 let donutParticles = [];
 let mouthOpenTimer = null; // track when mouth opened
 let lastDonutTime = 0;     // for spacing between donuts
@@ -46,20 +51,18 @@ function prepareInteraction() {
   eyeWhiteLeft = loadImage('images/eyeWhiteLeft.png');
   hair = loadImage('images/hair.png');
   donut = loadImage('images/donut.png');
+  laser = loadImage('images/laser.png');
   star = loadImage('images/star.png');
   kiwi = loadImage('images/kiwi.png');
   cookie = loadImage('images/cookie.png');
   ball = loadImage('images/ball.png');
-
   startTime = millis(); //set up seconds counter
-
 }
 
 function drawInteraction(faces, hands) {
   noStroke()
   fill(250)
   rect(0, 0, 1290, 960)
-
 
   for (let i = 0; i < hands.length; i++) {
     let hand = hands[i];
@@ -92,7 +95,6 @@ function drawInteraction(faces, hands) {
       image(armRight, 0, 0, 300, 50);
       pop();
     }
-
 
     //legs
     if (hand.handedness === "Right") {
@@ -197,9 +199,45 @@ function drawInteraction(faces, hands) {
 
 let mouthCentreX = topLipX - bottomLipX;
 let mouthCentreY = bottomLipY - topLipY;
-mouthCentreX = constrain(mouthCentreX, -mouthRangeX, mouthRangeX);
-mouthCentreY = constrain(mouthCentreY, 0, mouthRangeY); // vertical only
 
+  mouthCentreX = constrain(mouthCentreX, -mouthRangeX, mouthRangeX);
+  mouthCentreY = constrain(mouthCentreY, 0, mouthRangeY); // only vertical downwards
+
+  // check if mouth is open
+  if (mouthCentreY > 18) {
+    // mouth just opened
+    if (mouthTimer === null) {
+      mouthTimer = millis();
+
+      // shoot laser once
+      laserActive = true;
+      laserX = face.keypoints[0].x - 20;
+      laserY = face.keypoints[0].y - mouthCentreY - 20;
+    }
+
+    // after 2 seconds, start vomiting donuts
+    if ((millis() - mouthTimer) >= 2000) {
+      image(donut, face.keypoints[0].x - 20, face.keypoints[0].y - mouthCentreY - 20, 300, 223);
+    }
+
+  } else {
+    mouthTimer = null;
+  }
+
+  // --- LASER UPDATE ---
+  if (laserActive) {
+    image(laser, laserX, laserY, 300, 223);
+    laserX += 15; // move right
+
+    // stop laser when it goes off screen
+    if (laserX > width) {
+      laserActive = false;
+    }
+  }
+
+
+
+  
 if (mouthCentreY > 19) { 
   if (mouthOpenTimer === null) {
     mouthOpenTimer = millis(); 
@@ -207,6 +245,7 @@ if (mouthCentreY > 19) {
 } else {
   mouthOpenTimer = null;     // reset timer if mouth closes
 }
+
 //AI Assisted Code (F.H is for my own comments to show understanding of code)
 
 //spawn donuts after 2 seconds of mouth open F.H

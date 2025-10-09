@@ -21,6 +21,10 @@ let rightEyeCenterX;
 let rightEyebrowCenterY 
 let screenshotTimer = null;
 
+let donutParticles = []; // array to store particles
+let lastDonutTime = 0;   // track time between spawns
+
+
 function prepareInteraction() {
   face1 = loadImage('images/Face.png');
   leftEye = loadImage('images/EyeLeft.png');
@@ -198,15 +202,11 @@ function drawInteraction(faces, hands) {
     // draw donut animation after 2 seconds
    if (mouthCentreY > 19) {
     if (mouthTimer === null) {
-      mouthTimer = millis(); // start timer
+      mouthTimer = millis(); 
     }
     // check 2 seconds since mouth opened
     if ((millis() - mouthTimer) >= 2000) {
-    //image(donut, random(width), random(height), 300, 223)
-    //image(kiwi, random(width), random(height), 300, 223)
-    //image(cookie, random(width), random(height),300, 223)
-    //image(ball, random(width), random(height), 300, 223)
-    //image(star, random(width), random(height), 300, 223)
+
 
     image(donut, face.keypoints[0].x - 20, face.keypoints[0].y - mouthCentreY - 20 + donutY, 300, 223);
     donutY += 10; 

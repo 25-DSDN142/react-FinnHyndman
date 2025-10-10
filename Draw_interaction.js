@@ -235,8 +235,6 @@ let mouthCentreY = bottomLipY - topLipY;
     }
   }
 
-
-
   
 if (mouthCentreY > 19) { 
   if (mouthOpenTimer === null) {
